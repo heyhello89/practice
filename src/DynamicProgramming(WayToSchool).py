@@ -8,24 +8,24 @@ m x n 크기의 격자모양 길
 물에 잠기지 않은 지역을 통해
 집에서 학교까지 가는 최단경로 개수를 구하라
 https://programmers.co.kr/learn/courses/30/lessons/42898?language=python3#
+
+np로 zeros array를 만드는 것 보다 for 문으로 만드는게 더 빠르다
 """
 
 
 def solution(m, n, puddles):
-    arr = np.zeros([n, m])
-    arr[0][0] = 1
-    for a in range(0, n):
-        for b in range(0, m):
-            if a == 0 and b == 0:
-                pass
+    # arr = np.zeros([n, m])
+    arr = [[0] * (m + 1) for _ in range(n+1)]
 
-            elif [b + 1, a + 1] in puddles:
+    arr[1][1] = 1
+    for a in range(1, n + 1):
+        for b in range(1, m + 1):
+            if [b, a] in puddles:
                 arr[a][b] = 0
 
-            elif not ((a == 0) and (b == 0)):
+            elif not ((a == 1) and (b == 1)):
                 arr[a][b] = arr[a][b - 1] + arr[a - 1][b]
-
-    print(arr[n - 1][m - 1] % 1000000007)
+    print(arr[n][m] % 1000000007)
 
 
 if __name__ == '__main__':
