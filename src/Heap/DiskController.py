@@ -1,27 +1,35 @@
 import heapq
 
+from src.timeit import timeit
 
-# def solution(jobs):
-#     count, answer, time, start = 0, 0, 0, -1
-#     heap = []
-#
-#     while count < len(jobs):
-#         for s, t in jobs:
-#             if start < s <= time:
-#                 heapq.heappush(heap, (t, s))
-#
-#         if len(heap):
-#             t, s = heapq.heappop(heap)
-#             start = time
-#             time += t
-#             answer += time - s
-#             count += 1
-#
-#         else:
-#             time += 1
-#
-#     print(answer//count)
 
+@timeit
+def solution_1(jobs):
+    jobs.sort()
+    count, answer, time, start = 0, 0, 0, -1
+    heap = []
+
+    while count < len(jobs):
+        for s, t in jobs:
+            if start < s <= time:
+                heapq.heappush(heap, (t, s))
+            elif s > time:
+                break
+
+        if len(heap):
+            t, s = heapq.heappop(heap)
+            start = time
+            time += t
+            answer += time - s
+            count += 1
+
+        else:
+            time += 1
+
+    print(answer // count)
+
+
+# 다른사람 풀이(효율성 갓)
 class Job(object):
     def __init__(self, begin=0, cost=0):
         self.begin = begin
@@ -34,7 +42,8 @@ class Job(object):
         return self.cost <= other.cost
 
 
-def solution(jobs):
+@timeit
+def solution_2(jobs):
     jobs.sort(key=lambda item: item[0])
 
     last_index = 1
@@ -67,5 +76,6 @@ def solution(jobs):
 
 
 if __name__ == '__main__':
-    jobs = [[0, 3], [1, 9], [2, 6]]
-    solution(jobs)
+    jobs = [[1, 9], [0, 3], [2, 6], [5, 1], [6, 7], [20, 3], [30, 5], [120, 7], [100, 9]]
+    solution_1(jobs)
+    solution_2(jobs)
