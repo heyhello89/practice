@@ -17,6 +17,7 @@ np로 zeros array를 만드는 것 보다 for 문으로 만드는게 더 빠르�
 def solution(m, n, puddles):
     # arr = np.zeros([n, m])
     arr = [[0] * (m + 1) for _ in range(n+1)]
+    print(arr)
 
     arr[1][1] = 1
     for a in range(1, n + 1):
