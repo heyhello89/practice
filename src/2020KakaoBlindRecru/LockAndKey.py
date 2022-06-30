@@ -49,7 +49,6 @@ def get_point(lst, num):
 
 
 def solution(key, lock):
-
     m = len(key)
     n = len(lock)
     key_point = get_point(key, 1)
@@ -84,5 +83,21 @@ if __name__ == '__main__':
     key = [[0, 0, 0], [1, 0, 0], [0, 1, 1]]
     lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
 
-
     print(solution(key, lock))
+
+    s = "8 4"
+    p = "3 2 5 6 9 1 16 12"
+    n, k = s.split(" ")
+    print(n, k)
+    p = list(p.split(" "))
+    print(p)
+    print(min(p))
+    print(p.index(min(p)))
+    n = int(n)
+    k = int(k)
+
+    a = 1
+    a += (n - k) // (k - 1)
+    if (n - k) % (k - 1) != 0:
+        a += 1
+    print(a)
